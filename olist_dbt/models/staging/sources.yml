@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: olist_raw
+    description: "Raw Olist Brazilian E-Commerce data loaded from CSV files"
+    tables:
+      - name: orders
+        description: "One row per order"
+      - name: customers
+        description: "One row per customer"
+      - name: order_items
+        description: "One row per item within an order"
+      - name: payments
+        description: "One row per payment"
