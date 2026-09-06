@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Staging model for orders. One row per order."
+    columns:
+      - name: order_id
+        description: "Unique identifier for each order"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to customers"
+        tests:
+          - not_null
+      - name: order_status
+        description: "Current status of the order"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['delivered', 'shipped', 'canceled', 'invoiced', 'processing', 'created', 'approved', 'unavailable']
+
+  - name: stg_customers
+    description: "Staging model for customers. One row per customer."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for each customer"
+        tests:
+          - unique
+          - not_null
+      - name: customer_state
+        description: "Brazilian state code"
+        tests:
+          - not_null
+
+  - name: stg_order_items
+    description: "Staging model for order items. One row per item within an order."
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: order_item_id
+        tests:
+          - not_null
+      - name: price
+        tests:
+          - not_null
+
+  - name: stg_payments
+    description: "Staging model for payments. One row per payment."
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: payment_value
+        tests:
+          - not_null

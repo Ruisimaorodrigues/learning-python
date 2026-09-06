@@ -2,7 +2,7 @@
 
 with source as (
     select *
-    from read_csv_auto('{{ env_var("OLIST_DATA_PATH", "../data") }}/olist_orders_dataset.csv')
+    from read_csv_auto('C:/Users/ruisi/learning-python/data/olist_orders_dataset.csv')
 ),
 
 renamed as (
