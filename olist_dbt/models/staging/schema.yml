@@ -45,6 +45,7 @@ models:
       - name: price
         tests:
           - not_null
+          - positive_values
 
   - name: stg_payments
     description: "Staging model for payments. One row per payment."
@@ -55,3 +56,4 @@ models:
       - name: payment_value
         tests:
           - not_null
+          - positive_values
