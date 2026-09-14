@@ -17,6 +17,8 @@ select
     total_freight_value,
     total_items,
     total_payment_value,
-    datediff('day', ordered_at, delivered_at) as days_to_deliver
+    datediff('day', ordered_at, delivered_at) as days_to_deliver,
+    {{ brl_to_eur('total_payment_value') }} as total_payment_eur
+    
 from orders_enriched
 where order_status = 'delivered'
