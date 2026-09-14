@@ -27,6 +27,7 @@ payments as (
 )
 
 select
+     {{ dbt_utils.generate_surrogate_key(['o.order_id', 'o.customer_id']) }} as order_sk,
     o.order_id,
     o.customer_id,
     o.order_status,
@@ -39,6 +40,7 @@ select
     oi.total_freight_value,
     oi.total_items,
     p.total_payment_value
+   
 from orders o
 left join customers c on o.customer_id = c.customer_id
 left join order_items oi on o.order_id = oi.order_id
