@@ -17,8 +17,9 @@ select
     total_freight_value,
     total_items,
     total_payment_value,
-    datediff('day', ordered_at, delivered_at) as days_to_deliver,
-    {{ brl_to_eur('total_payment_value') }} as total_payment_eur
-    
+    {{ days_between('ordered_at', 'delivered_at') }} as days_to_deliver,
+    {{ brl_to_eur('total_payment_value') }} as total_payment_eur,
+    {{ safe_divide('total_items_value', 'total_items') }} as avg_item_price
+
 from orders_enriched
 where order_status = 'delivered'
