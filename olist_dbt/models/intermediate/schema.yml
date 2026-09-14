@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: int_orders_enriched
+    description: >
+      Intermediate model that enriches orders with customer info, 
+      aggregated item metrics and payment totals.
+      One row per order.
+    columns:
+      - name: order_id
+        description: "Unique identifier for each order. Primary key."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to dim_customers."
+        tests:
+          - not_null
+      - name: order_status
+        description: "Current lifecycle status of the order."
+        tests:
+          - not_null
+      - name: ordered_at
+        description: "Timestamp when the order was placed."
+      - name: delivered_at
+        description: "Timestamp when the order was delivered. Null if not delivered."
+      - name: customer_city
+        description: "City of the customer."
+      - name: customer_state
+        description: "Brazilian state code of the customer."
+      - name: total_items_value
+        description: "Sum of all item prices in the order."
+      
+      - name: total_freight_value
+        description: "Sum of all freight costs in the order."
+      - name: total_items
+        description: "Total number of items in the order."
+
+      - name: total_payment_value
+        description: "Total amount paid for the order."

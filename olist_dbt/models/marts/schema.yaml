@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: mart_orders
+    description: >
+      Final mart model with delivered orders enriched with delivery metrics.
+      One row per delivered order. This is the main analytical model for 
+      order performance analysis.
+    columns:
+      - name: order_id
+        description: "Unique identifier for each order. Primary key."
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to customers."
+        tests:
+          - not_null
+      - name: customer_state
+        description: "Brazilian state where the customer is located."
+        tests:
+          - not_null
+      - name: total_payment_value
+        description: "Total amount paid for the order in Brazilian Reais."
+        tests:
+          - positive_values
+      - name: days_to_deliver
+        description: "Number of days between order placement and delivery."
