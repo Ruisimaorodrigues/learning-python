@@ -19,6 +19,7 @@ select
     customer_state,
     total_items_value,
     total_payment_value,
+    total_freight_value,
     {{ days_between('ordered_at', 'delivered_at') }} as days_to_deliver,
     {{ brl_to_eur('total_payment_value') }} as total_payment_eur
 
