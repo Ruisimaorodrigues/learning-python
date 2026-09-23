@@ -1,0 +1,27 @@
+version: 2
+
+snapshots:
+  - name: snap_dim_customers
+    description: >
+      SCD Type 2 snapshot of customers dimension.
+      Tracks changes to customer_city, customer_state and customer_zip_code.
+      One row per customer per version. Active records have dbt_valid_to = NULL.
+    columns:
+      - name: customer_sk
+        description: "Surrogate key generated from customer_id."
+        tests:
+          - not_null
+      - name: customer_id
+        description: "Natural key from source system."
+        tests:
+          - not_null
+      - name: customer_city
+        description: "City where the customer is located."
+      - name: customer_state
+        description: "Brazilian state code."
+      - name: dbt_valid_from
+        description: "Timestamp when this version of the record became active."
+        tests:
+          - not_null
+      - name: dbt_valid_to
+        description: "Timestamp when this version expired. NULL means currently active."
