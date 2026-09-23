@@ -25,5 +25,8 @@ select
 from orders_enriched
 
 {% if is_incremental() %}
-    where ordered_at > (select max(ordered_at) from {{ this }})
+    where ordered_at > (
+        select date_add (max(ordered_at), interval '-48' hour)
+        from {{ this }}
+    )
 {% endif %}
