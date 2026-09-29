@@ -1,0 +1,39 @@
+version: 2
+
+metrics:
+  - name: total_revenue
+    label: Total Revenue (BRL)
+    description: >
+      Total payment value across all delivered orders.
+      Excludes cancelled, processing and other non-delivered orders.
+      Currency: Brazilian Reais (BRL).
+    type: simple
+    type_params:
+      measure:
+        name: total_payment_value
+        agg: sum
+    filter: |
+      {{ Dimension('order__order_status') }} = 'delivered'
+
+  - name: avg_days_to_deliver
+    label: Average Days to Deliver
+    description: >
+      Average number of days between order placement and delivery.
+      Only includes delivered orders with a valid delivery date.
+      Excludes orders where days_to_deliver is null or negative.
+    type: simple
+    type_params:
+      measure:
+        name: days_to_deliver
+        agg: average
+
+  - name: total_orders
+    label: Total Orders
+    description: >
+      Count of delivered orders.
+      One order = one unique order_id in mart_orders.
+    type: simple
+    type_params:
+      measure:
+        name: order_id
+        agg: count
