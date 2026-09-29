@@ -1,0 +1,25 @@
+version: 2
+
+exposures:
+  - name: orders_dashboard
+    type: dashboard
+    description: >
+      Dashboard de performance de orders - revenue por estado,
+      tempo médio de entrega e evolução mensal.
+    depends_on:
+      - ref('mart_orders')
+      - ref('mart_orders_by_state')
+    owner:
+      name: Rui Rodrigues
+      email: rui@example.com
+
+  - name: orders_incremental_pipeline
+    type: ml
+    description: >
+      Pipeline incremental de orders para modelos de previsão
+      de churn e tempo de entrega.
+    depends_on:
+      - ref('mart_orders_incremental')
+    owner:
+      name: Rui Rodrigues
+      email: rui@example.com
