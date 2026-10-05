@@ -1,0 +1,46 @@
+name: dbt CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dbt-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dbt
+        run: pip install dbt-core dbt-duckdb
+
+      - name: Copy data files
+        run: |
+          mkdir -p olist_dbt/data
+          cp olist_dbt/data/.gitkeep olist_dbt/data/ 2>/dev/null || true
+
+      - name: Create dbt profiles
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml << 'EOF'
+          olist_dbt:
+            outputs:
+              dev:
+                type: duckdb
+                path: olist_dbt/dev.duckdb
+                threads: 1
+            target: dev
+          EOF
+
+      - name: Install dbt packages
+        run: cd olist_dbt && dbt deps
+
+      - name: Run dbt build
+        run: cd olist_dbt && dbt build
