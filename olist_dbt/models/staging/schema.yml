@@ -65,3 +65,13 @@ models:
         tests:
           - not_null
           - positive_values
+    - name: stg_sellers
+    description: "Staging model for sellers. One row per seller."
+    columns:
+      - name: seller_id
+        tests:
+          - unique
+          - not_null
+      - name: seller_state
+        tests:
+          - not_null
