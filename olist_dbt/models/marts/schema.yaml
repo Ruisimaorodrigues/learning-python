@@ -26,3 +26,16 @@ models:
           - positive_values
       - name: days_to_deliver
         description: "Number of days between order placement and delivery."
+  - name: mart_orders_incremental
+    description: "Incremental version of mart_orders for efficient processing."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+      - name: total_payment_value
+        tests:
+          - positive_values
