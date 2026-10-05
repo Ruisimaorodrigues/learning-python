@@ -1,6 +1,3 @@
--- Este teste falha se o número de ordens delivered no mart
--- for diferente do número na staging
-
 with staging_count as (
     select count(*) as total
     from {{ ref('stg_orders') }}
@@ -13,5 +10,6 @@ mart_count as (
 )
 
 select 1
-from staging_count s, mart_count m
+from staging_count s
+cross join mart_count m
 where s.total != m.total
