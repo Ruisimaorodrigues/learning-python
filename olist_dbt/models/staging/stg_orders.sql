@@ -2,7 +2,10 @@
 
 with source as (
     select *
-    from read_csv_auto('C:/Users/ruisi/learning-python/data/olist_orders_dataset.csv')
+    from
+        read_csv_auto(
+            'C:/Users/ruisi/learning-python/data/olist_orders_dataset.csv'
+        )
 ),
 
 renamed as (
@@ -10,7 +13,7 @@ renamed as (
         order_id,
         customer_id,
         order_status,
-        order_purchase_timestamp::timestamp  as ordered_at,
+        order_purchase_timestamp::timestamp as ordered_at,
         order_delivered_customer_date::timestamp as delivered_at,
         order_estimated_delivery_date::timestamp as estimated_delivery_at
     from source

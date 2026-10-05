@@ -1,0 +1,9 @@
+[sqlfluff]
+templater = dbt
+dialect = duckdb
+exclude_rules = RF05
+
+[sqlfluff:templater:dbt]
+project_dir = .
+profiles_dir = C:/Users/ruisi/.dbt
+profile = olist_dbt
